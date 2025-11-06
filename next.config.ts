@@ -1,27 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // 禁用 Turbopack
-  experimental: {
-    turbo: {
-      resolveAlias: {
-        canvas: false,
-      },
-    },
-  },
-  
   serverExternalPackages: ['canvas'],
   
   webpack: (config, { isServer }) => {
     // 配置 canvas 模块的 fallback
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        canvas: false,
-        fs: false,
-        path: false,
-        crypto: false,
-      }
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      canvas: false,
+      fs: false,
+      path: false,
+      crypto: false,
     }
     
     config.resolve.alias = {
@@ -30,8 +19,8 @@ const nextConfig: NextConfig = {
     }
 
     // 忽略 canvas 模块
-    config.externals = config.externals || []
     if (isServer) {
+      config.externals = config.externals || []
       config.externals.push('canvas')
     }
 

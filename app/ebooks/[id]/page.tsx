@@ -2,12 +2,21 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Ebook } from '@/types'
-import { PDFReader } from '@/components/PDFReader'
 import Link from 'next/link'
+
+// 动态导入 PDFReader 以避免 SSR 问题
+const PDFReader = dynamic(
+  () => import('@/components/PDFReader').then((mod) => ({ default: mod.PDFReader })),
+  { 
+    ssr: false,
+    loading: () => <div className="flex items-center justify-center h-screen"><p className="text-[#b0aea5]">加载 PDF 阅读器...</p></div>
+  }
+)
 
 export default function EbookDetailPage() {
   const params = useParams<{ id?: string | string[] }>()
