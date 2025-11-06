@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 
 interface Params {
   params: Promise<{
@@ -81,7 +82,7 @@ export async function POST(request: Request, { params }: Params) {
         isSolved,
         moves: payload.moves ?? null,
         elapsedSeconds: payload.elapsedSeconds ?? null,
-        snapshot: payload.snapshot ?? null,
+        snapshot: payload.snapshot ? (payload.snapshot as Prisma.InputJsonValue) : Prisma.JsonNull,
         completedAt: isSolved ? new Date() : null,
       },
     })
