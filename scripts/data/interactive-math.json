@@ -1,0 +1,89 @@
+[
+  {
+    "id": "pz-slide-01",
+    "title": "华容道智力挑战",
+    "type": "SLIDE_PUZZLE",
+    "gradeBand": "小升初",
+    "knowledgeTags": ["空间想象", "规划能力", "逻辑推理"],
+    "prompt": "经典华容道游戏！移动三国名将，帮助曹操逃出重围。目标：将所有武将按正确顺序排列，曹操在中间位置。",
+    "initialState": {
+      "board": [
+        ["魏延", "马超", "张飞"],
+        ["曹操", "hole", "赵云"],
+        ["卒", "黄忠", "关羽"]
+      ],
+      "difficulty": "easy",
+      "maxSteps": 20
+    },
+    "targetState": {
+      "board": [
+        ["张飞", "赵云", "马超"],
+        ["黄忠", "曹操", "魏延"],
+        ["卒", "关羽", "hole"]
+      ],
+      "winCondition": "将所有武将按正确顺序排列，曹操在中间位置，空格在右下角"
+    },
+    "solution": {
+      "optimalSteps": 12,
+      "strategy": "先移动周围武将为曹操让路，再将曹操移到中心位置，最后整理其他武将位置",
+      "hint": "观察目标布局，先为曹操清理移动路径",
+      "difficulties": {
+        "easy": {
+          "maxSteps": 20,
+          "hint": "有充足的步数，慢慢规划每一步移动"
+        },
+        "medium": {
+          "maxSteps": 15,
+          "hint": "需要更高效的路径规划，减少无效移动"
+        },
+        "hard": {
+          "maxSteps": 12,
+          "hint": "挑战最优解！每一步都要精确计算"
+        }
+      }
+    },
+    "explanation": "经典华容道游戏，训练学生的空间推理能力和策略规划思维。支持三种难度：简单(20步)、中等(15步)、困难(12步)。",
+    "difficulty": "easy",
+    "previewImage": "/images/puzzles/huarongdao-01.png"
+  },
+  {
+    "id": "pz-minesweeper-01",
+    "title": "扫雷大师",
+    "type": "LOGIC_PUZZLE",
+    "gradeBand": "小升初",
+    "knowledgeTags": ["逻辑推理", "数字分析", "策略思维"],
+    "prompt": "经典扫雷游戏！根据数字提示找出所有地雷位置。左键点击翻开格子，右键标记地雷。",
+    "initialState": {
+      "difficulty": "easy",
+      "boardSize": { "rows": 9, "cols": 9 },
+      "mineCount": 10
+    },
+    "targetState": {
+      "winCondition": "翻开所有非地雷格子，或正确标记所有地雷"
+    },
+    "solution": {
+      "strategy": "观察数字提示，推理地雷位置，从确定的格子开始",
+      "hint": "数字表示周围8个格子中地雷的数量",
+      "difficulties": {
+        "easy": {
+          "boardSize": { "rows": 9, "cols": 9 },
+          "mineCount": 10,
+          "hint": "初级：9×9网格，10个地雷"
+        },
+        "medium": {
+          "boardSize": { "rows": 16, "cols": 16 },
+          "mineCount": 40,
+          "hint": "中级：16×16网格，40个地雷"
+        },
+        "hard": {
+          "boardSize": { "rows": 16, "cols": 30 },
+          "mineCount": 99,
+          "hint": "高级：16×30网格，99个地雷"
+        }
+      }
+    },
+    "explanation": "经典扫雷游戏，训练学生的逻辑推理和数字分析能力。支持三种难度：初级(9×9,10雷)、中级(16×16,40雷)、高级(16×30,99雷)。",
+    "difficulty": "easy",
+    "previewImage": "/images/puzzles/minesweeper-01.png"
+  }
+]

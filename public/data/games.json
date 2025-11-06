@@ -1,0 +1,56 @@
+[
+  {
+    "id": "game1",
+    "type": "matchstick",
+    "difficulty": 1,
+    "question": "移动一根火柴棒，使等式成立：3 + 5 = 8",
+    "answer": { "move": [3, 5], "action": "remove" },
+    "illustration": "/images/matchstick-1.png"
+  },
+  {
+    "id": "game2",
+    "type": "matchstick",
+    "difficulty": 2,
+    "question": "移动两根火柴棒，使下面的等式成立：8 - 3 = 6",
+    "answer": { "move": [8, 6], "action": "add" },
+    "illustration": "/images/matchstick-2.png"
+  },
+  {
+    "id": "game3",
+    "type": "matchstick",
+    "difficulty": 1,
+    "question": "移动一根火柴棒，使等式成立：7 + 2 = 5",
+    "answer": { "move": [7, 5], "action": "remove" },
+    "illustration": "/images/matchstick-3.png"
+  },
+  {
+    "id": "game4",
+    "type": "findDiff",
+    "difficulty": 1,
+    "question": "找出两幅图的不同之处（点击差异位置）",
+    "answer": [{ "x": 100, "y": 150 }, { "x": 200, "y": 100 }],
+    "illustration": "/images/finddiff-1.png"
+  },
+  {
+    "id": "game5",
+    "type": "findDiff",
+    "difficulty": 2,
+    "question": "找出两幅图的所有不同之处（至少5处）",
+    "answer": [
+      { "x": 80, "y": 100 },
+      { "x": 150, "y": 200 },
+      { "x": 250, "y": 150 },
+      { "x": 300, "y": 250 },
+      { "x": 180, "y": 300 }
+    ],
+    "illustration": "/images/finddiff-2.png"
+  },
+  {
+    "id": "game6",
+    "type": "slidePuzzle",
+    "difficulty": 1,
+    "question": "滑动方块，使数字排列为1-8（空格在右下）",
+    "answer": "completed",
+    "illustration": "/images/slide-1.png"
+  }
+]

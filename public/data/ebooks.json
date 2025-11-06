@@ -1,0 +1,80 @@
+[
+  {
+    "id": "1",
+    "title": "一年级数学趣味学习",
+    "grade": 1,
+    "subject": "数学",
+    "pdfUrl": "/sample/sample-book-1.pdf",
+    "coverImage": "/images/cover-1.png",
+    "knowledgePoints": [
+      {
+        "id": "kp1",
+        "title": "认识数字1-10",
+        "content": "通过生活中的物品，让孩子认识数字1到10，理解数字的实际意义。",
+        "pageNumber": 3,
+        "digitalTeacherContent": {
+          "avatarState": "explain",
+          "text": "小朋友们，让我们一起认识数字1到10吧！看，这些可爱的数字就像我们的好朋友。",
+          "illustration": "/images/numbers-1-10.png"
+        }
+      }
+    ],
+    "chapters": [
+      { "id": "c1", "title": "数字的认识", "pageNumber": 1 },
+      { "id": "c2", "title": "数数的方法", "pageNumber": 5 },
+      { "id": "c3", "title": "数字游戏", "pageNumber": 8 }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "三年级科学探索",
+    "grade": 3,
+    "subject": "科学",
+    "pdfUrl": "/sample/sample-book-2.pdf",
+    "coverImage": "/images/cover-2.png",
+    "knowledgePoints": [
+      {
+        "id": "kp2",
+        "title": "植物的生长",
+        "content": "了解植物从种子到开花结果的全过程，认识植物的各个部分及其功能。",
+        "pageNumber": 5,
+        "digitalTeacherContent": {
+          "avatarState": "think",
+          "text": "同学们，你们知道一颗小种子是怎样变成大植物的吗？让我们来探索这个奇妙的过程！",
+          "illustration": "/images/plant-growth.png"
+        }
+      }
+    ],
+    "chapters": [
+      { "id": "c1", "title": "认识植物", "pageNumber": 1 },
+      { "id": "c2", "title": "植物的生长", "pageNumber": 4 },
+      { "id": "c3", "title": "植物的作用", "pageNumber": 10 }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "五年级物理启蒙",
+    "grade": 5,
+    "subject": "物理",
+    "pdfUrl": "/sample/sample-book-3.pdf",
+    "coverImage": "/images/cover-3.png",
+    "knowledgePoints": [
+      {
+        "id": "kp3",
+        "title": "什么是力",
+        "content": "认识力的概念，了解力的作用效果，知道生活中常见的力。",
+        "pageNumber": 7,
+        "digitalTeacherContent": {
+          "avatarState": "interact",
+          "text": "推门、拉抽屉、踢球...这些动作都用到了'力'！让我们一起探索力的奥秘吧！",
+          "illustration": "/images/force-example.png"
+        }
+      }
+    ],
+    "chapters": [
+      { "id": "c1", "title": "认识力", "pageNumber": 1 },
+      { "id": "c2", "title": "力的作用", "pageNumber": 6 },
+      { "id": "c3", "title": "弹力和重力", "pageNumber": 12 }
+    ]
+  }
+]

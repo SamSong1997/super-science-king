@@ -1,0 +1,80 @@
+[
+  {
+    "id": "exp1",
+    "title": "密度实验",
+    "subject": "物理",
+    "phetUrl": "https://phet.colorado.edu/sims/html/density/latest/density_all.html?locale=zh_CN",
+    "description": "探索物质密度与质量、体积的关系，理解密度概念",
+    "instructions": [
+      "选择不同材料观察密度差异",
+      "改变质量或体积",
+      "观察密度计算公式",
+      "理解密度在生活中的应用"
+    ]
+  },
+  {
+    "id": "exp2",
+    "title": "气球和静电",
+    "subject": "物理",
+    "phetUrl": "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/latest/balloons-and-static-electricity_all.html?locale=zh_CN",
+    "description": "观察静电现象，了解电荷的转移和相互作用",
+    "instructions": [
+      "用气球摩擦头发",
+      "观察静电吸引现象",
+      "了解正负电荷",
+      "探索静电屏蔽"
+    ]
+  },
+  {
+    "id": "exp3",
+    "title": "光的折射",
+    "subject": "物理",
+    "phetUrl": "https://phet.colorado.edu/sims/html/bending-light/latest/bending-light_all.html?locale=zh_CN",
+    "description": "观察光在不同介质中的传播，理解折射现象",
+    "instructions": [
+      "观察光线折射现象",
+      "改变入射角度",
+      "测量折射率",
+      "探索全反射现象"
+    ]
+  },
+  {
+    "id": "exp4",
+    "title": "分数入门",
+    "subject": "数学",
+    "phetUrl": "https://phet.colorado.edu/sims/html/fractions-intro/latest/fractions-intro_all.html?locale=zh_CN",
+    "description": "通过图形理解分数概念，掌握分数运算",
+    "instructions": [
+      "用图形表示分数",
+      "比较分数大小",
+      "进行分数加减",
+      "理解分数意义"
+    ]
+  },
+  {
+    "id": "exp5",
+    "title": "数轴-整数",
+    "subject": "数学",
+    "phetUrl": "https://phet.colorado.edu/sims/html/number-line-integers/latest/number-line-integers_all.html?locale=zh_CN",
+    "description": "在数轴上理解正负数，掌握整数运算",
+    "instructions": [
+      "在数轴上表示整数",
+      "理解正负数概念",
+      "进行整数加减",
+      "比较整数大小"
+    ]
+  },
+  {
+    "id": "exp6",
+    "title": "自然选择",
+    "subject": "生物",
+    "phetUrl": "https://phet.colorado.edu/sims/html/natural-selection/latest/natural-selection_all.html?locale=zh_CN",
+    "description": "模拟生物进化过程，理解自然选择机制",
+    "instructions": [
+      "观察种群变化",
+      "理解适者生存",
+      "探索基因频率",
+      "分析进化因素"
+    ]
+  }
+]

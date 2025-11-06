@@ -1,0 +1,244 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// 用户模型
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  grade     Int
+  role      String   @default("student") // student, teacher, admin
+  status    String   @default("active") // active, inactive
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 关系
+  readingProgress    ReadingProgress[]
+  testResults        TestResult[]
+  puzzleAttempts     PuzzleAttempt[]
+  checkpointProgress CheckpointProgress[]
+}
+
+// 电子书模型
+model Ebook {
+  id          String   @id @default(cuid())
+  title       String
+  subject     String
+  grade       Int
+  pdfUrl      String
+  coverImage  String?
+  description String?
+  status      String   @default("published") // draft, published, archived
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关系
+  knowledgePoints KnowledgePoint[]
+  chapters        Chapter[]
+  readingProgress ReadingProgress[]
+}
+
+// 知识点模型
+model KnowledgePoint {
+  id         String   @id @default(cuid())
+  title      String
+  content    String
+  pageNumber Int
+  ebookId    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // 关系
+  ebook Ebook @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+}
+
+// 章节模型
+model Chapter {
+  id         String   @id @default(cuid())
+  title      String
+  pageNumber Int
+  ebookId    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // 关系
+  ebook Ebook @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+}
+
+// 阅读进度模型
+model ReadingProgress {
+  id          String   @id @default(cuid())
+  userId      String
+  ebookId     String
+  currentPage Int      @default(1)
+  progress    Float    @default(0) // 0-100
+  lastReadAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关系
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ebook Ebook @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, ebookId])
+}
+
+// 题目模型
+model Question {
+  id          String   @id @default(cuid())
+  subject     String
+  grade       Int
+  type        String // single, multiple, fill, open
+  question    String
+  options     String? // JSON 字符串
+  answer      String
+  explanation String?
+  difficulty  String   @default("medium") // easy, medium, hard
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关系
+  testResults TestResult[]
+}
+
+// 测评结果模型
+model TestResult {
+  id         String   @id @default(cuid())
+  userId     String
+  questionId String
+  score      Float // 0-100
+  userAnswer String
+  isCorrect  Boolean
+  createdAt  DateTime @default(now())
+
+  // 关系
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+// 实验模型
+model Experiment {
+  id           String   @id @default(cuid())
+  title        String
+  subject      String
+  phetUrl      String
+  description  String?
+  instructions String? // JSON 字符串数组
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// 互动题类型
+enum PuzzleType {
+  SLIDE_PUZZLE
+  ARITHMETIC
+  FUNCTION_GRAPH
+  LOGIC_PUZZLE
+}
+
+// 互动数学题
+model InteractivePuzzle {
+  id            String     @id @default(cuid())
+  title         String
+  prompt        String
+  type          PuzzleType
+  gradeBand     String
+  knowledgeTags Json?
+  initialState  Json
+  targetState   Json?
+  solution      Json?
+  explanation   String?
+  difficulty    String     @default("medium")
+  previewImage  String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // 关系
+  attempts        PuzzleAttempt[]
+  checkpointLinks CheckpointPuzzle[]
+}
+
+// 互动题闯关
+model Checkpoint {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+  grade       Int?
+  sequence    Int
+  badgeImage  String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关系
+  puzzles  CheckpointPuzzle[]
+  progress CheckpointProgress[]
+  attempts PuzzleAttempt[]
+}
+
+// 关卡与题目关联
+model CheckpointPuzzle {
+  id           String   @id @default(cuid())
+  checkpointId String
+  puzzleId     String
+  order        Int      @default(0)
+  minScore     Float?   @default(0)
+  createdAt    DateTime @default(now())
+
+  // 关系
+  checkpoint Checkpoint        @relation(fields: [checkpointId], references: [id], onDelete: Cascade)
+  puzzle     InteractivePuzzle @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+
+  @@unique([checkpointId, puzzleId])
+}
+
+// 互动题作答
+model PuzzleAttempt {
+  id             String    @id @default(cuid())
+  userId         String
+  puzzleId       String
+  checkpointId   String?
+  status         String    @default("in_progress") // in_progress, completed, abandoned
+  isSolved       Boolean   @default(false)
+  moves          Int?
+  elapsedSeconds Int?
+  snapshot       Json?
+  startedAt      DateTime  @default(now())
+  completedAt    DateTime?
+
+  // 关系
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  puzzle     InteractivePuzzle @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+  checkpoint Checkpoint?       @relation(fields: [checkpointId], references: [id], onDelete: SetNull)
+
+  @@index([userId, puzzleId])
+}
+
+// 关卡进度
+model CheckpointProgress {
+  id           String    @id @default(cuid())
+  userId       String
+  checkpointId String
+  stars        Int       @default(0)
+  score        Float     @default(0)
+  bestTime     Int?
+  status       String    @default("locked") // locked, unlocked, completed
+  unlockedAt   DateTime  @default(now())
+  completedAt  DateTime?
+
+  // 关系
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  checkpoint Checkpoint @relation(fields: [checkpointId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, checkpointId])
+}
