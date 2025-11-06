@@ -66,9 +66,6 @@ export function PDFViewer({ fileUrl, chapter, onPageChange }: PDFViewerProps) {
         ),
       },
     ],
-    onSidebarToggle: (status) => {
-      console.log('Sidebar toggle:', status)
-    },
   })
 
   const handlePageChange = (e: { currentPage: number }) => {
