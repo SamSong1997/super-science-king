@@ -37,8 +37,16 @@ const QUICK_QUESTIONS = [
   }
 ]
 
+interface Message {
+  id: number
+  role: string
+  content: string
+  time: string
+  isSystem?: boolean
+}
+
 export default function AIAssistantPage() {
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       role: 'assistant',
