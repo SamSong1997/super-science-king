@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "dev:3001": "next dev -p 3001 --webpack",
-    "build": "next build",
+    "build": "NEXT_PRIVATE_STANDALONE=true next build --no-turbo",
     "start": "next start",
     "lint": "eslint",
     "db:studio": "prisma studio",

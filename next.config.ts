@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // 添加空的 turbopack 配置以消除警告
-  turbopack: {},
+  experimental: {
+    // 禁用 Turbopack，使用 webpack
+    turbo: undefined,
+  },
   
   webpack: (config, { isServer }) => {
     config.resolve.fallback = {
@@ -10,6 +12,7 @@ const nextConfig: NextConfig = {
       fs: false,
       path: false,
       crypto: false,
+      canvas: false,
     }
     
     config.resolve.alias = {
