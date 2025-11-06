@@ -28,6 +28,7 @@ export function PDFViewer({ fileUrl, chapter, onPageChange }: PDFViewerProps) {
             <path d="M2 3h12v2H2V3zm0 4h12v2H2V7zm0 4h12v2H2v-2z" fill="currentColor" />
           </svg>
         ),
+        title: '目录',
         label: '目录',
         content: (
           <div className="p-4">
@@ -55,6 +56,7 @@ export function PDFViewer({ fileUrl, chapter, onPageChange }: PDFViewerProps) {
             <path d="M2 2h12v12H2V2zm2 2v8h8V4H4z" fill="currentColor" />
           </svg>
         ),
+        title: '书签',
         label: '书签',
         content: (
           <div className="p-4">
