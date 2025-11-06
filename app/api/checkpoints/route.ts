@@ -54,17 +54,20 @@ export async function GET(request: Request) {
       sequence: checkpoint.sequence,
       badgeImage: checkpoint.badgeImage,
       puzzles: includePuzzles
-        ? checkpoint.puzzles.map(link => ({
-            id: link.puzzleId,
-            order: link.order,
-            minScore: link.minScore,
-            title: link.puzzle.title,
-            type: link.puzzle.type,
-            difficulty: link.puzzle.difficulty,
-            prompt: link.puzzle.prompt,
-            previewImage: link.puzzle.previewImage,
-            knowledgeTags: toKnowledgeTags(link.puzzle.knowledgeTags as unknown),
-          }))
+        ? checkpoint.puzzles.map(link => {
+            const puzzleLink = link as typeof link & { puzzle: { title: string; type: string; difficulty: string; prompt: string; previewImage: string | null; knowledgeTags: unknown } }
+            return {
+              id: link.puzzleId,
+              order: link.order,
+              minScore: link.minScore,
+              title: puzzleLink.puzzle.title,
+              type: puzzleLink.puzzle.type,
+              difficulty: puzzleLink.puzzle.difficulty,
+              prompt: puzzleLink.puzzle.prompt,
+              previewImage: puzzleLink.puzzle.previewImage,
+              knowledgeTags: toKnowledgeTags(puzzleLink.puzzle.knowledgeTags),
+            }
+          })
         : undefined,
       progress:
         Array.isArray(checkpoint.progress) && checkpoint.progress.length > 0
