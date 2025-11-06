@@ -47,24 +47,33 @@ export async function GET(request: Request) {
         : undefined,
     })
 
-    const payload = puzzles.map(puzzle => ({
-      id: puzzle.id,
-      title: puzzle.title,
-      prompt: puzzle.prompt,
-      type: puzzle.type,
-      gradeBand: puzzle.gradeBand,
-      difficulty: puzzle.difficulty,
-      previewImage: puzzle.previewImage,
-      knowledgeTags: toKnowledgeTags(puzzle.knowledgeTags as unknown),
-      checkpoints: includeCheckpoints
-        ? puzzle.checkpointLinks.map(link => ({
-            id: link.checkpointId,
-            title: link.checkpoint.title,
-            slug: link.checkpoint.slug,
-            order: link.order,
-          }))
-        : undefined,
-    }))
+    const payload = puzzles.map(puzzle => {
+      const puzzleWithLinks = puzzle as typeof puzzle & { 
+        checkpointLinks?: Array<{ 
+          checkpointId: string; 
+          order: number; 
+          checkpoint: { title: string; slug: string } 
+        }> 
+      }
+      return {
+        id: puzzle.id,
+        title: puzzle.title,
+        prompt: puzzle.prompt,
+        type: puzzle.type,
+        gradeBand: puzzle.gradeBand,
+        difficulty: puzzle.difficulty,
+        previewImage: puzzle.previewImage,
+        knowledgeTags: toKnowledgeTags(puzzle.knowledgeTags as unknown),
+        checkpoints: includeCheckpoints && puzzleWithLinks.checkpointLinks
+          ? puzzleWithLinks.checkpointLinks.map(link => ({
+              id: link.checkpointId,
+              title: link.checkpoint.title,
+              slug: link.checkpoint.slug,
+              order: link.order,
+            }))
+          : undefined,
+      }
+    })
 
     return NextResponse.json(payload)
   } catch (error) {
