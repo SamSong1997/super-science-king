@@ -35,7 +35,7 @@ export default function GamesPage() {
     loadPuzzles()
   }, [])
 
-  const gameTypes = {
+  const gameTypes: Record<string, { name: string; icon: string; color: string }> = {
     SLIDE_PUZZLE: { name: '华容道智力挑战', icon: '🧩', color: 'bg-[#6a9bcc]/10' },
     LOGIC_PUZZLE: { name: '扫雷大师', icon: '💣', color: 'bg-[#d97757]/10' },
   }
