@@ -22,7 +22,7 @@ async function main() {
     
     // 删除所有关卡链接（如果存在）
     try {
-      const deletedLinks = await prisma.checkpointPuzzleLink.deleteMany({})
+      const deletedLinks = await prisma.checkpointPuzzle.deleteMany({})
       console.log(`✅ 删除了 ${deletedLinks.count} 个旧关卡链接`)
     } catch (e) {
       console.log('ℹ️  关卡链接表不存在，跳过')

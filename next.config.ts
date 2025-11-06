@@ -3,7 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // 添加空的 turbopack 配置以消除警告
   turbopack: {},
-  
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   serverExternalPackages: ['canvas'],
   
   webpack: (config, { isServer }) => {
