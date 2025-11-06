@@ -1,18 +1,27 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // 禁用 Turbopack
   experimental: {
-    // 禁用 Turbopack，使用 webpack
-    turbo: undefined,
+    turbo: {
+      resolveAlias: {
+        canvas: false,
+      },
+    },
   },
   
+  serverExternalPackages: ['canvas'],
+  
   webpack: (config, { isServer }) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-      path: false,
-      crypto: false,
-      canvas: false,
+    // 配置 canvas 模块的 fallback
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        canvas: false,
+        fs: false,
+        path: false,
+        crypto: false,
+      }
     }
     
     config.resolve.alias = {
@@ -20,12 +29,10 @@ const nextConfig: NextConfig = {
       canvas: false,
     }
 
-    // 忽略 pdfjs-dist 的某些模块
+    // 忽略 canvas 模块
     config.externals = config.externals || []
-    if (!isServer) {
-      config.externals.push({
-        'pdfjs-dist/build/pdf.worker.entry': 'pdfjs-dist/build/pdf.worker.entry',
-      })
+    if (isServer) {
+      config.externals.push('canvas')
     }
 
     // 添加规则处理 .mjs 文件
