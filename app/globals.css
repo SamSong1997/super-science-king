@@ -185,3 +185,21 @@
 .react-pdf__Page__annotations {
   border: 1px solid transparent;
 }
+
+/* 平滑滚动和滑页效果 */
+.snap-y {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* 减慢滚动速度 */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
