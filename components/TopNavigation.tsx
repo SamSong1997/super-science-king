@@ -61,8 +61,8 @@ export function TopNavigation() {
                           : 'text-[#141413] hover:bg-[#e8e6dc] hover:text-[#d97757]'
                       }`}
                     >
-                      <Icon className="w-4 h-4" />
-                      <span className="text-sm">{item.label}</span>
+                      <Icon className="w-5 h-5" />
+                      <span className="text-base">{item.label}</span>
                     </Button>
                   </Link>
                 )
