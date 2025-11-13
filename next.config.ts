@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
+  // 配置外部图片域名
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
+
   webpack: (config, { isServer }) => {
     // 配置 canvas 模块的 fallback
     config.resolve.fallback = {
