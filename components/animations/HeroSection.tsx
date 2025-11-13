@@ -128,7 +128,7 @@ export function HeroSection() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 1,
-            type: "spring",
+            type: "spring" as const,
             stiffness: 100
           }}
         >
