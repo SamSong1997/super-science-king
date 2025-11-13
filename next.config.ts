@@ -2,7 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ['canvas'],
-  
+
+  // 添加空的 turbopack 配置以消除 Next.js 16 的警告
+  turbopack: {},
+
   webpack: (config, { isServer }) => {
     // 配置 canvas 模块的 fallback
     config.resolve.fallback = {
