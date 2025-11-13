@@ -28,6 +28,7 @@ const VIDEO_LIST = [
     title: '电力是什么？电从哪里来？',
     duration: '15:30',
     videoId: 'Dx3RpXdJw2k',
+    bilibiliUrl: 'https://www.bilibili.com/video/BV1RBeozpEoD',
     description: '探索电力的奥秘，了解电的来源、电的作用以及电在日常生活中的应用。',
     chapters: [
       { time: '00:00', title: '电力初探' },
@@ -41,6 +42,7 @@ const VIDEO_LIST = [
     title: '认识磁铁：什么是磁铁？它是如何工作的？',
     duration: '16:20',
     videoId: '7HHs98PBgk0',
+    bilibiliUrl: 'https://www.bilibili.com/video/BV1RBeozpEoD',
     description: '通过有趣的实验了解磁铁的特性，探索磁铁的工作原理和应用。',
     chapters: [
       { time: '00:00', title: '磁铁的魅力' },
@@ -54,6 +56,7 @@ const VIDEO_LIST = [
     title: '认识时间线：适合K-6学生的时间线全面概览',
     duration: '20:00',
     videoId: 'o50HA6QTxj0',
+    bilibiliUrl: 'https://www.bilibili.com/video/BV1RBeozpEoD',
     description: '学习如何理解和使用时间线，掌握时间顺序的概念，培养历史思维。',
     chapters: [
       { time: '00:00', title: '时间线的概念' },
@@ -68,6 +71,7 @@ const VIDEO_LIST = [
     title: '认识角度：有趣的角度世界入门',
     duration: '14:15',
     videoId: 'sajxuoq7QyQ',
+    bilibiliUrl: 'https://www.bilibili.com/video/BV1RBeozpEoD',
     description: '在轻松愉快的氛围中学习角度的基础知识，发现角度在日常生活中的应用。',
     chapters: [
       { time: '00:00', title: '角度是什么' },
@@ -148,7 +152,6 @@ const QUIZ_QUESTIONS = [
 
 export default function DigitalTeacherPage() {
   const [selectedVideo, setSelectedVideo] = useState(VIDEO_LIST[0])
-  const [currentTime, setCurrentTime] = useState(0)
   const [currentMode, setCurrentMode] = useState<'flashcard' | 'quiz' | null>(null)
   const [teacherImage, setTeacherImage] = useState('/teacher.png')
   
@@ -164,7 +167,8 @@ export default function DigitalTeacherPage() {
   const [quizCompleted, setQuizCompleted] = useState(false)
 
   const handleChapterClick = (chapter: any) => {
-    setCurrentTime(chapter.time)
+    // Bilibili 播放器不支持时间跳转
+    console.log('跳转到章节:', chapter.title)
   }
 
   const startFlashcard = () => {
@@ -264,7 +268,6 @@ export default function DigitalTeacherPage() {
                 key={video.id}
                 onClick={() => {
                   setSelectedVideo(video)
-                  setCurrentTime(0)
                   setCurrentMode(null)
                 }}
                 className={`
@@ -273,20 +276,8 @@ export default function DigitalTeacherPage() {
                 `}
               >
                 <div className="relative rounded-lg overflow-hidden border border-[#e8e6dc] h-full flex flex-col">
-                  <div className="aspect-video bg-black flex items-center justify-center flex-shrink-0">
-                    <img
-                      src={`https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`}
-                      alt={video.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement
-                        target.style.display = 'none'
-                        target.nextElementSibling?.classList.remove('hidden')
-                      }}
-                    />
-                    <div className="hidden absolute inset-0 bg-[#e8e6dc] flex items-center justify-center">
-                      <PlayCircle className="w-16 h-16 text-[#7a7770]" />
-                    </div>
+                  <div className="aspect-video bg-gradient-to-br from-[#788c5d]/20 to-[#6a9bcc]/20 flex items-center justify-center flex-shrink-0">
+                    <PlayCircle className="w-16 h-16 text-[#788c5d]" />
                   </div>
                   <div className="p-4 bg-white flex-1 flex flex-col justify-between">
                     <div>
@@ -317,8 +308,8 @@ export default function DigitalTeacherPage() {
               <CardContent className="p-0">
                 <div className="relative aspect-video bg-black">
                   <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${selectedVideo.videoId}?start=${Math.floor(currentTime * 60)}`}
+                    className="w-full h-full border-0"
+                    src={`//player.bilibili.com/player.html?bvid=BV1RBeozpEoD&page=1&autoplay=0`}
                     title={selectedVideo.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
