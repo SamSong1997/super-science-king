@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, ZCOOL_KuaiLe } from "next/font/google";
+import { Geist, Geist_Mono, Lora } from "next/font/google";
 import "./globals.css";
 import { Layout } from "@/components/Layout";
 
@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const zcoolKuaiLe = ZCOOL_KuaiLe({
-  weight: "400",
+const lora = Lora({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-zcool-kuaile",
+  variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${zcoolKuaiLe.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} antialiased`}
       >
         <Layout>{children}</Layout>
       </body>
