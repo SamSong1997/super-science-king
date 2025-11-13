@@ -3,44 +3,91 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 
-// 更新后的布局 - 9个图标，按要求调整位置和大小
+// 更新后的布局 - 9个图标，响应式尺寸
 const heroIcons = [
   // 中间上方 - 放大一倍，居中
-  { name: '画板 14.png', size: 200, position: { left: 'calc(50% - 100px)', top: '8%' } },
+  {
+    name: '画板 14.png',
+    size: { mobile: 100, tablet: 150, desktop: 200 },
+    position: { left: '50%', top: '8%', transform: 'translateX(-50%)' },
+    hideOnMobile: false
+  },
 
   // 中间下方 - 放大一倍
-  { name: '画板 7.png', size: 240, position: { left: 'calc(50% - 120px)', bottom: '10%' } },
+  {
+    name: '画板 7.png',
+    size: { mobile: 120, tablet: 180, desktop: 240 },
+    position: { left: '50%', bottom: '10%', transform: 'translateX(-50%)' },
+    hideOnMobile: false
+  },
 
   // 左侧上方 - 放大一倍，往左上移动
-  { name: '画板 39.png', size: 220, position: { left: '5%', top: '10%' } },
+  {
+    name: '画板 39.png',
+    size: { mobile: 80, tablet: 150, desktop: 220 },
+    position: { left: '5%', top: '10%' },
+    hideOnMobile: true // 移动端隐藏边缘图标
+  },
 
   // 右侧上方 - 放大一倍
-  { name: '画板 49.png', size: 170, position: { right: '5%', top: '12%' } },
+  {
+    name: '画板 49.png',
+    size: { mobile: 70, tablet: 120, desktop: 170 },
+    position: { right: '5%', top: '12%' },
+    hideOnMobile: true
+  },
 
   // 右侧中间 - 放大一倍
-  { name: '画板 48.png', size: 190, position: { right: '3%', top: '45%' } },
+  {
+    name: '画板 48.png',
+    size: { mobile: 80, tablet: 135, desktop: 190 },
+    position: { right: '3%', top: '45%' },
+    hideOnMobile: true
+  },
 
   // 左侧中间
-  { name: '画板 29.png', size: 130, position: { left: '5%', top: '50%' } },
+  {
+    name: '画板 29.png',
+    size: { mobile: 60, tablet: 95, desktop: 130 },
+    position: { left: '5%', top: '50%' },
+    hideOnMobile: true
+  },
 
   // 左下
-  { name: '画板 40.png', size: 140, position: { left: '2%', bottom: '12%' } },
+  {
+    name: '画板 40.png',
+    size: { mobile: 70, tablet: 105, desktop: 140 },
+    position: { left: '2%', bottom: '12%' },
+    hideOnMobile: true
+  },
 
   // 右下
-  { name: '画板 51.png', size: 150, position: { right: '3%', bottom: '8%' } },
+  {
+    name: '画板 51.png',
+    size: { mobile: 75, tablet: 110, desktop: 150 },
+    position: { right: '3%', bottom: '8%' },
+    hideOnMobile: true
+  },
 ]
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [vh, setVh] = useState(800)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
 
-  // 获取视口高度
+  // 获取视口高度和屏幕尺寸
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setVh(window.innerHeight)
-      const handleResize = () => setVh(window.innerHeight)
-      window.addEventListener('resize', handleResize)
-      return () => window.removeEventListener('resize', handleResize)
+      const updateSize = () => {
+        setVh(window.innerHeight)
+        setIsMobile(window.innerWidth < 768)
+        setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024)
+      }
+
+      updateSize()
+      window.addEventListener('resize', updateSize)
+      return () => window.removeEventListener('resize', updateSize)
     }
   }, [])
 
@@ -77,14 +124,24 @@ export function HeroSection() {
 
       {/* 背景图标 - 使用 absolute 定位，随滚动淡出 */}
       {heroIcons.map((icon, index) => {
+        // 移动端隐藏边缘图标
+        if (isMobile && icon.hideOnMobile) return null
+
+        // 根据屏幕尺寸选择图标大小
+        const iconSize = isMobile
+          ? icon.size.mobile
+          : isTablet
+          ? icon.size.tablet
+          : icon.size.desktop
+
         return (
           <motion.div
             key={icon.name}
             className="absolute pointer-events-none"
             style={{
               ...icon.position,
-              width: icon.size,
-              height: icon.size,
+              width: iconSize,
+              height: iconSize,
               zIndex: 0,
               opacity: iconOpacity,
             }}
@@ -135,7 +192,7 @@ export function HeroSection() {
           <motion.img
             src="/images/logo@1x.png"
             alt="超级理科王"
-            className="w-[750px] md:w-[900px] h-auto drop-shadow-2xl"
+            className="w-[280px] sm:w-[400px] md:w-[600px] lg:w-[750px] xl:w-[900px] h-auto drop-shadow-2xl px-4"
             animate={{
               y: [0, -15, 0],
             }}

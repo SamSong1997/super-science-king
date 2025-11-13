@@ -89,7 +89,7 @@ export default function HomePage() {
   return (
     <div className="relative">
       {/* 背景层 - 慢速滚动 */}
-      <div 
+      <div
         className="fixed inset-0 z-0 pointer-events-none"
         style={{
           transform: `translateY(${scrollY * 0.3}px)`,
@@ -97,9 +97,9 @@ export default function HomePage() {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#faf9f5] via-[#f5f3eb] to-[#faf9f5] opacity-50" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#d97757]/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-[#6a9bcc]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-[#788c5d]/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-48 h-48 md:w-72 md:h-72 lg:w-96 lg:h-96 bg-[#d97757]/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 right-1/4 w-48 h-48 md:w-72 md:h-72 lg:w-96 lg:h-96 bg-[#6a9bcc]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/3 w-48 h-48 md:w-72 md:h-72 lg:w-96 lg:h-96 bg-[#788c5d]/5 rounded-full blur-3xl" />
       </div>
 
       {/* 前景层 - 正常滚动 */}
@@ -113,18 +113,18 @@ export default function HomePage() {
         <section className="min-h-screen flex items-center relative overflow-hidden bg-[#faf9f5]">
 
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 w-full relative z-10">
           {/* 标题区域 */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl text-[#141413] font-bold mb-4">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#141413] font-bold mb-3 md:mb-4">
               六大核心功能
             </h2>
-            <p className="text-lg text-[#788c5d] max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-[#788c5d] max-w-2xl mx-auto px-4">
               全方位提升科学素养，让学习更有趣更高效
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative">
           {features.map((feature, index) => (
             <div key={feature.id} className="relative" style={{ transformStyle: 'preserve-3d' }}>
               <FeatureCard
