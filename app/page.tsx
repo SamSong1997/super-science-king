@@ -5,6 +5,7 @@ import { FeatureCard } from '@/components/animations/FeatureCard'
 import { HeroSection } from '@/components/animations/HeroSection'
 import { FeatureDetail } from '@/components/animations/FeatureDetail'
 import { Footer } from '@/components/Footer'
+import { useEffect, useState } from 'react'
 
 const features = [
   {
@@ -14,7 +15,7 @@ const features = [
     href: '/ebooks',
     icon: BookOpen,
     color: 'from-[#d97757] to-[#d97757]/80',
-    bgColor: 'bg-[#d97757]/10',
+    bgColor: 'bg-[#ffd4c4]',
     numberImage: '/images/numbers/1.png'
   },
   {
@@ -24,7 +25,7 @@ const features = [
     href: '/digital-teacher',
     icon: GraduationCap,
     color: 'from-[#6a9bcc] to-[#6a9bcc]/80',
-    bgColor: 'bg-[#6a9bcc]/10',
+    bgColor: 'bg-[#cce5f7]',
     numberImage: '/images/numbers/2.png'
   },
   {
@@ -34,7 +35,7 @@ const features = [
     href: '/experiments',
     icon: FlaskConical,
     color: 'from-[#788c5d] to-[#788c5d]/80',
-    bgColor: 'bg-[#788c5d]/10',
+    bgColor: 'bg-[#d9e5c7]',
     numberImage: '/images/numbers/3.png'
   },
   {
@@ -43,8 +44,8 @@ const features = [
     description: '9大维度能力测评，生成个性化学习报告',
     href: '/assessment',
     icon: ScrollText,
-    color: 'from-[#d97757] to-[#d97757]/80',
-    bgColor: 'bg-[#d97757]/10',
+    color: 'from-[#e8a87c] to-[#e8a87c]/80',
+    bgColor: 'bg-[#ffe4cc]',
     numberImage: '/images/numbers/4.png'
   },
   {
@@ -53,8 +54,8 @@ const features = [
     description: '火柴人、找不同、华容道等趣味挑战',
     href: '/games',
     icon: Gamepad2,
-    color: 'from-[#6a9bcc] to-[#6a9bcc]/80',
-    bgColor: 'bg-[#6a9bcc]/10',
+    color: 'from-[#8fb3d5] to-[#8fb3d5]/80',
+    bgColor: 'bg-[#f5e6ff]',
     numberImage: '/images/numbers/5.png'
   },
   {
@@ -63,23 +64,56 @@ const features = [
     description: '24小时在线答疑，个性化学习建议',
     href: '/ai-assistant',
     icon: MessageSquare,
-    color: 'from-[#788c5d] to-[#788c5d]/80',
-    bgColor: 'bg-[#788c5d]/10',
+    color: 'from-[#9ba87a] to-[#9ba87a]/80',
+    bgColor: 'bg-[#fff0f0]',
     numberImage: '/images/numbers/6.png'
   },
 ]
 
 export default function HomePage() {
+  const [scrollY, setScrollY] = useState(0)
+  const [viewportHeight, setViewportHeight] = useState(0)
+
+  useEffect(() => {
+    // 设置视口高度
+    setViewportHeight(window.innerHeight)
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <div className="snap-y snap-mandatory h-screen overflow-y-scroll scroll-smooth">
-      {/* Hero Section - Logo with floating icons */}
-      <div className="snap-start h-screen">
-        <HeroSection />
+    <div className="relative">
+      {/* 背景层 - 慢速滚动 */}
+      <div 
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{
+          transform: `translateY(${scrollY * 0.3}px)`,
+          transition: 'transform 0.1s ease-out'
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-[#faf9f5] via-[#f5f3eb] to-[#faf9f5] opacity-50" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#d97757]/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-[#6a9bcc]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-[#788c5d]/5 rounded-full blur-3xl" />
       </div>
 
-      {/* Features Grid */}
-      <section className="snap-start min-h-screen bg-transparent flex items-center relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full relative z-10">
+      {/* 前景层 - 正常滚动 */}
+      <div className="relative z-10">
+        {/* Hero Section - Logo with floating icons */}
+        <div className="h-screen">
+          <HeroSection />
+        </div>
+
+        {/* Features Grid */}
+        <section className="min-h-screen flex items-center relative overflow-hidden bg-[#faf9f5]">
+
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full relative z-10">
           {/* 标题区域 */}
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl text-[#141413] font-bold mb-4">
@@ -99,12 +133,12 @@ export default function HomePage() {
               />
             </div>
           ))}
+          </div>
         </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Feature Details - 6个功能详情连续排列 */}
-      <section className="snap-start min-h-screen relative bg-transparent overflow-hidden py-12">
+        {/* Feature Details - 6个功能详情连续排列 */}
+        <section className="min-h-screen relative bg-transparent overflow-hidden py-12">
         <div className="space-y-16">
           <FeatureDetail
             index={1}
@@ -153,9 +187,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer - 最后一屏 */}
-      <div className="snap-start">
-        <Footer />
+        {/* Footer - 最后一屏 */}
+        <div>
+          <Footer />
+        </div>
       </div>
     </div>
   )

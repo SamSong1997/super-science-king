@@ -7,25 +7,25 @@ import { useRef, useEffect, useState } from 'react'
 const heroIcons = [
   // 中间上方 - 放大一倍，居中
   { name: '画板 14.png', size: 200, position: { left: 'calc(50% - 100px)', top: '8%' } },
-  
+
   // 中间下方 - 放大一倍
   { name: '画板 7.png', size: 240, position: { left: 'calc(50% - 120px)', bottom: '10%' } },
-  
+
   // 左侧上方 - 放大一倍，往左上移动
   { name: '画板 39.png', size: 220, position: { left: '5%', top: '10%' } },
-  
+
   // 右侧上方 - 放大一倍
   { name: '画板 49.png', size: 170, position: { right: '5%', top: '12%' } },
-  
+
   // 右侧中间 - 放大一倍
   { name: '画板 48.png', size: 190, position: { right: '3%', top: '45%' } },
-  
+
   // 左侧中间
   { name: '画板 29.png', size: 130, position: { left: '5%', top: '50%' } },
-  
+
   // 左下
   { name: '画板 40.png', size: 140, position: { left: '2%', bottom: '12%' } },
-  
+
   // 右下
   { name: '画板 51.png', size: 150, position: { right: '3%', bottom: '8%' } },
 ]
@@ -33,7 +33,7 @@ const heroIcons = [
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [vh, setVh] = useState(800)
-  
+
   // 获取视口高度
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -43,30 +43,30 @@ export function HeroSection() {
       return () => window.removeEventListener('resize', handleResize)
     }
   }, [])
-  
+
   // 监听整个页面的滚动
   const { scrollY } = useScroll()
-  
+
   // 背景图标在滚动到视口高度的 50% 时开始淡出，80% 时完全消失
   const iconOpacity = useTransform(
     scrollY,
     [0, vh * 0.5, vh * 0.8],
     [0.85, 0.2, 0]
   )
-  
+
   // Logo 的变换 - 滚动到第二屏时淡出
   const logoOpacity = useTransform(scrollY, [0, vh * 0.5, vh * 0.8], [1, 0.5, 0])
   const logoScale = useTransform(scrollY, [0, vh * 0.5, vh * 0.8], [1, 0.9, 0.8])
   const logoY = useTransform(scrollY, [0, vh * 0.5, vh * 0.8], [0, -50, -100])
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative h-screen flex items-center justify-center pb-20 overflow-hidden bg-gradient-to-b from-[#faf9f5] to-white"
     >
       {/* 背景渐变 */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#d97757]/5 via-[#6a9bcc]/5 to-[#788c5d]/5" />
-      
+
       {/* 背景网格 */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -88,8 +88,8 @@ export function HeroSection() {
               zIndex: 0,
               opacity: iconOpacity,
             }}
-            initial={{ 
-              opacity: 0, 
+            initial={{
+              opacity: 0,
               scale: 0,
             }}
             animate={{
@@ -118,7 +118,7 @@ export function HeroSection() {
       })}
 
       {/* Logo 中心 */}
-      <motion.div 
+      <motion.div
         className="relative z-10 flex items-center justify-center"
         style={{ opacity: logoOpacity, scale: logoScale, y: logoY }}
       >
@@ -126,7 +126,7 @@ export function HeroSection() {
           className="relative"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ 
+          transition={{
             duration: 1,
             type: "spring",
             stiffness: 100

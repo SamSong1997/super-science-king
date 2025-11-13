@@ -19,20 +19,10 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4 text-[#141413]">联系方式</h3>
             <ul className="space-y-2 text-sm text-[#788c5d]">
-              <li>地址：北京市海淀区中关村南大街5号</li>
+              <li>地址：北京市丰台区四合庄路6号院</li>
               <li>邮编：100081</li>
+              <li>邮箱：edu@bitpress.com.cn</li>
               <li>电话：010-68914026 / 010-82562903</li>
-              <li>
-                官网：
-                <a 
-                  href="http://edu.bitpress.com.cn" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-[#6a9bcc] hover:text-[#d97757] transition-colors ml-1"
-                >
-                  edu.bitpress.com.cn
-                </a>
-              </li>
             </ul>
           </div>
 

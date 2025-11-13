@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, ZCOOL_KuaiLe } from "next/font/google";
 import "./globals.css";
 import { Layout } from "@/components/Layout";
 
@@ -11,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const zcoolKuaiLe = ZCOOL_KuaiLe({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-zcool-kuaile",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${zcoolKuaiLe.variable} antialiased`}
       >
         <Layout>{children}</Layout>
       </body>
